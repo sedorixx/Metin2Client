@@ -1,0 +1,40 @@
+name: Sedometin
+options:
+  minimumXcodeGenVersion: 2.38.0
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  SedometinEngine:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Sources/SedometinEngine
+    settings:
+      PRODUCT_NAME: SedometinEngine
+      SWIFT_VERSION: 5.9
+  Sedometin:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/SedometinApp
+    dependencies:
+      - target: SedometinEngine
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.sedorixx.sedometin
+      PRODUCT_NAME: Sedometin
+      INFOPLIST_FILE: Sources/SedometinApp/Info.plist
+      SWIFT_VERSION: 5.9
+    scheme:
+      gatherCoverageData: true
+      testTargets:
+        - SedometinEngineTests
+  SedometinEngineTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests/SedometinEngineTests
+    dependencies:
+      - target: SedometinEngine
+    settings:
+      TEST_HOST: ""
+      BUNDLE_LOADER: ""
